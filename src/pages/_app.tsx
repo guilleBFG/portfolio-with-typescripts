@@ -6,12 +6,17 @@ import { Languages } from "../lang/languajes";
 import Navbar from "../components/Navbar";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { locale, defaultLocale } = useRouter();
+  let { locale , defaultLocale } = useRouter();
+
+  if (typeof locale !== "string"){
+    locale = 'en';
+  }
+
   return (
     <IntlProvider
-      locale={locale as any}
+      locale={locale}
       defaultLocale={defaultLocale}
-      messages={Languages[locale] as any}
+      messages={Languages[locale as keyof typeof Languages ] }
     >
       <Navbar {...pageProps}/>
       <Component {...pageProps} />
