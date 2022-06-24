@@ -1,25 +1,39 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useIntl } from "react-intl";
-import { InferGetStaticPropsType } from "next";
 import Herobutton from "../components/Herobutton";
 import styles from "../styles/Home.module.css";
 import { sanityClient } from "../lib/sanity";
 import BlockchainNFTBlock from "../components/BlockchainNFTBlock";
 import Footer from "../components/Footer";
+import { User } from "../lib/typings";
 
-const userQuery = `*[_type == 'user'][0]`;
+const userQuery = `*[_type == 'user'][0]{
+  profilePicture,
+  fullName,
+  jobTitle,
+  email,
+  linkedIn,
+  telephone,
+  github,
+  nftWallet,
+  introduction,
+  coverLetter,
+}`;
+interface Props{
+  data:{
+    user:User,
+  }
+}
 
-type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>;
-
-const Home: NextPage = ({ data }: any) => {
+const Home = ( {data}  : Props) => {
   const intl = useIntl();
+  const {user} = data;
 
   const title = intl.formatMessage({ id: "page.home.head.title" });
   const description = intl.formatMessage({
     id: "page.home.head.meta.description",
   });
-
   return (
     <div className={styles.container}>
       <Head>
@@ -33,8 +47,8 @@ const Home: NextPage = ({ data }: any) => {
         <link rel="alternate" href="/pt" hrefLang="pt" />
       </Head>
 
-      <Herobutton user={data.user} key="heroButton" />
-      <BlockchainNFTBlock user={data.user} />
+      <Herobutton  {...user}  />
+      <BlockchainNFTBlock {...user} />
 
       <footer className={styles.footer}>
         <Footer />
@@ -47,7 +61,6 @@ export default Home;
 
 export async function getStaticProps() {
   const user = await sanityClient.fetch(userQuery);
-
   return {
     props: {
       data: {

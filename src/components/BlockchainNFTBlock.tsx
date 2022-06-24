@@ -2,10 +2,11 @@ import { useIntl } from "react-intl";
 import NftCard from "./NftCard";
 import SkeletonCard from "./SkeletonCard";
 import useSWR from "swr";
+import { User } from "../lib/typings";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-function BlockchainNFTBlock({ user }) {
+function BlockchainNFTBlock( user : User) {
   const { data, nftLoaded } = useSWR(
     `../api/fetch-NFT?nftWallet=${user?.nftWallet}`,
     fetcher

@@ -13,11 +13,11 @@ function createPDF() {
   const fontType = "Courier";
 
   const doc = new jsPDF();
-  let xPosition = 20;
+  let xPosition = "20";
   let yPosition = 20;
   let pageHeight = 280;
 
-  const updateHeight = (row) => {
+  const updateHeight = (row: number) => {
     yPosition = yPosition + row;
     if (yPosition >= pageHeight) {
       doc.addPage();
@@ -62,7 +62,7 @@ function createPDF() {
 
     // line
     doc.setDrawColor(colorLightGrey);
-    doc.line(xPosition, yPosition, 200, yPosition, "FD");
+    doc.line(xPosition as any, yPosition, 200, yPosition, "FD");
     updateHeight(rowHeight);
     updateHeight(smallHeight);
   };
@@ -74,7 +74,7 @@ function createPDF() {
     doc.text(
       xPosition,
       yPosition,
-      `${intl.formatMessage({ id: "page.resume.workHistory" })}`
+      `${intl.formatMessage({ id: "page.resume.workHistory" })}` as any
     );
     updateHeight(rowHeight);
     // work experience content
