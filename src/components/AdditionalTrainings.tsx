@@ -3,11 +3,15 @@ import Image from "next/image";
 import PortableText from "react-portable-text";
 import { urlFor } from "../lib/sanity";
 import moment from "moment";
+import { AdditionalTraining } from "../lib/typings";
 
-function AdditionalTrainings(
-  additionalTraining: any,
-  locale: string
-) {
+interface Prop{
+  additionalTraining: AdditionalTraining,
+  locale?: string,
+}
+function AdditionalTrainings( prop : Prop) {
+  const{additionalTraining, locale} = prop;
+  
   let degreeTitle = "";
   let degreeDescription = [];
   switch (locale) {

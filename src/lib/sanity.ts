@@ -16,4 +16,4 @@ export const urlFor = (source: SanityImageSource) =>
 // Helper function for using the current logged in user account
 
 
-export const useCurrentUser = createCurrentUserHook(config as any);
+export const useCurrentUser = createCurrentUserHook(config);
