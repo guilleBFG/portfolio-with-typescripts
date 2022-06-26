@@ -12,7 +12,6 @@ function Navbar({ data }: Props) {
   const [active, setActive] = useState(false);
   const { locales } = useRouter();
   const intl = useIntl();
-  const { user } = data;
 
   const menuItems = [
     {
@@ -70,8 +69,8 @@ function Navbar({ data }: Props) {
         >
           <div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto">
             <Link
-              key={user?.telephone}
-              href={`https://wa.me/${user?.telephone}`}
+              key={data?.user?.telephone}
+              href={`https://wa.me/${data?.user?.telephone}`}
             >
               <a
                 className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center  bg-gradient-to-r  hover:from-pink-500 hover:to-pink-300 "
@@ -81,7 +80,7 @@ function Navbar({ data }: Props) {
                 <Icon width="30" height="30" icon="logos:whatsapp" />
               </a>
             </Link>
-            <Link key={user?.github} href={user?.github ?? ''}>
+            <Link key={data?.user?.github} href={data?.user?.github ?? ''}>
               <a
                 className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center  bg-gradient-to-r  hover:from-pink-500 hover:to-pink-300"
                 target={"_blank"}
@@ -90,7 +89,7 @@ function Navbar({ data }: Props) {
                 <Icon width="30" height="30" icon="jam:github-circle" />
               </a>
             </Link>
-            <Link key={user?.email} href={`mailto:${user?.email}`}>
+            <Link key={data?.user?.email} href={`mailto:${data?.user?.email}`}>
               <a
                 className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center bg-gradient-to-r  hover:from-pink-500 hover:to-pink-300"
                 target={"_blank"}
@@ -99,7 +98,7 @@ function Navbar({ data }: Props) {
                 <Icon width="30" height="30" icon="logos:google-gmail" />
               </a>
             </Link>
-            <Link key={user?.linkedIn} href={user?.linkedIn ?? ''}>
+            <Link key={data?.user?.linkedIn} href={data?.user?.linkedIn ?? ''}>
               <a
                 className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center bg-gradient-to-r  hover:from-pink-500 hover:to-pink-300"
                 target={"_blank"}
