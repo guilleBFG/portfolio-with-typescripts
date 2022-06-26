@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { useIntl } from "react-intl";
 
-function NftCard({ nft }) {
+function NftCard({ nft }  : any) {
   const mimeType = `${nft.meta.content[0].mimeType}`;
   const intl = useIntl();
   const openseaUrlParametters = nft.id.toString().split(":");

@@ -1,14 +1,18 @@
-import { React, useState } from "react";
+import React,{  useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useIntl } from "react-intl";
 import { Icon } from "@iconify/react";
 import LanguageButton from "./LanguageButton";
+import { Props } from "../lib/typings";
 
-function Navbar({ user }) {
+
+
+function Navbar({ data }: Props) {
   const [active, setActive] = useState(false);
   const { locales } = useRouter();
   const intl = useIntl();
+  const { user } = data;
 
   const menuItems = [
     {

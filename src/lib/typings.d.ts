@@ -1,6 +1,13 @@
 import { SanityImageSource } from "@sanity/image-url/lib/types/types"
 
 
+export interface Props{
+    data:{
+      user:User,
+      resume: Resume,
+    }
+  }
+
 export interface User{
     profilePicture:SanityImageSource,
     fullName:string,
@@ -15,7 +22,7 @@ export interface User{
 }
 export interface Workhistory{
     companyName:string,
-    companyLogo:string,
+    companyLogo:SanityImageSource,
     fromDate:Date,
     toDate:Date,
     jobTitle:StringLocale,
@@ -23,7 +30,7 @@ export interface Workhistory{
 }
 export interface Education{
     institutionName:string,
-    institutionImage:string,
+    institutionImage:SanityImageSource,
     fromDate:Date,
     toDate:Date,
     degreeTitle:StringLocale,
@@ -45,9 +52,16 @@ export interface StringLocale{
     es:string,
     pt:string
 }
+
+export interface AdditionalTraining{
+    date:Date,
+    institutionImage:SanityImageSource,
+    degreeTitle:StringLocale,
+    degreeDescription:BlockLocale,
+}
 export interface Resume{
     user:User,
-    workhistorys:[Workhistory],
-    educations:[Education],
-    additionalTrainings:[AdditionalTraining]
+    workhistorys:Workhistory[],
+    educations:Education[],
+    additionalTrainings:AdditionalTraining[],
 }

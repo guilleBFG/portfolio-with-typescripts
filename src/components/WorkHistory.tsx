@@ -4,13 +4,19 @@ import PortableText from "react-portable-text";
 import {  urlFor } from "../lib/sanity";
 import moment from "moment";
 import { useIntl } from "react-intl";
+import { Workhistory } from "../lib/typings";
 
-function WorkHistory({ workHistory, locale }) {
+interface Props{
+  workHistory: Workhistory,
+  locale: string | undefined,
+}
+
+function WorkHistory(props : Props) {
+  const { workHistory  , locale   } = props;
   let jobTitle = "";
-  let jobDescription = "";
+  let jobDescription = [];
   let toDate = "";
   const intl = useIntl();
-
   if(workHistory.toDate)
   {
     toDate = moment(workHistory.toDate).format("DD-MM-YYYY");
@@ -59,11 +65,6 @@ function WorkHistory({ workHistory, locale }) {
                   dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
                   content={jobDescription}
                   className="text-white text-base sm:text-center lg:text-left"
-                  serializers={{
-                    h1: (props) => <h1 {...props} />,
-                    h2: (props) => <h2 {...props} />,
-                    bullet: (props) => <li {...props} />,
-                  }}
                 />
               </blockquote>
             </div>

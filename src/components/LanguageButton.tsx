@@ -5,7 +5,11 @@ import Link from "next/link";
 import { useIntl } from "react-intl";
 import { useRouter  } from 'next/router'
 
-export default function LanguageButton({ locales }) {
+interface Props{
+  locales?: string[],
+}
+export default function LanguageButton(props : Props) {
+  let { locales } = props;
   const intl = useIntl();
   const router = useRouter()
 
@@ -31,7 +35,7 @@ export default function LanguageButton({ locales }) {
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items className="lg:absolute sm:inline-flex  w-full  justify-center rounded-md bg-gray-400 bg-opacity-20 px-4 py-2 text-sm font-medium text-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            {[...locales].sort().map((locale) => (
+            {locales && [...locales].sort().map((locale) => (
               <div key={locale} className="px-1 py-1">
                 <Menu.Item>
                   {({ active }) => (

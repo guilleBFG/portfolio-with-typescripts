@@ -7,6 +7,8 @@ import Education from "../components/Education";
 import AdditionalTrainings from "../components/AdditionalTrainings";
 import BlockchainNFTBlock from "../components/BlockchainNFTBlock";
 import { Icon } from "@iconify/react";
+import { Props } from "../lib/typings";
+
 
 import createPDF from "../components/PDF/CreatePDF";
 
@@ -15,12 +17,12 @@ const resumeQuery = `*[_type == 'resume'][0]{
   user->,
   educations[]->,
   additionalTrainings[]->,
-  workhistorys[]->,
+  workhistorys[]->
 }`;
 
-function Resume({ data }: any) {
-  const { locale } = useRouter();
-
+function Resume({ data }: Props) {
+  const { locale }  = useRouter();
+  const {resume, user} = data;
   const intl = useIntl();
 
   const title = intl.formatMessage({ id: "page.home.head.title" });
@@ -32,27 +34,27 @@ function Resume({ data }: any) {
   let jobTitle = "";
   switch (locale) {
     case "es":
-      jobTitle = data.resume?.user?.jobTitle.es;
+      jobTitle = resume?.user?.jobTitle.es;
       break;
     case "en":
-      jobTitle = data.resume?.user?.jobTitle.en;
+      jobTitle = resume?.user?.jobTitle.en;
       break;
     case "pt":
-      jobTitle = data.resume?.user?.jobTitle.pt;
+      jobTitle = resume?.user?.jobTitle.pt;
       break;
     default:
-      jobTitle = data.resume?.user?.jobTitle.en;
+      jobTitle = resume?.user?.jobTitle.en;
       break;
   }
 
   const generatePDF = ()=>{
     const createPdf = createPDF();
-    createPdf.addPersInfo(data.resume.user, intl);
-    createPdf.addWorkExperience(data.resume.workhistorys, locale,intl);
-    createPdf.addEducation(data.resume.educations, locale,intl);
-    createPdf.addTrainings(data.resume.additionalTrainings, locale);
+    createPdf.addPersInfo(user, intl);
+    createPdf.addWorkExperience(resume.workhistorys, locale,intl);
+    createPdf.addEducation(resume.educations, locale,intl);
+    createPdf.addTrainings(resume.additionalTrainings, locale);
 
-    createPdf.savePDF(`${data.resume.user?.fullName} (${locale}).pdf`);
+    createPdf.savePDF(`${user?.fullName} (${locale}).pdf`);
 
   }
   return (
@@ -63,18 +65,18 @@ function Resume({ data }: any) {
       </Head>
       <div className="italic">
         <div className="p-3 bg-gray-800 border-gray-700  text-4xl text-white text-bold text-center">
-          {data.resume.user?.fullName}
+          {user?.fullName}
         </div>
         <div className="p-1 bg-gray-800 border-gray-700  text-xl text-white text-bold text-center">
           {intl.formatMessage({ id: "page.resume.email" })}:
           <span className=" ml-1 font-medium subpixel-antialiased">
-            {data.resume?.user?.email}
+            {user?.email}
           </span>
         </div>
         <div className="p-2 bg-gray-800 border-gray-700  text-xl text-white text-bold text-center">
           {intl.formatMessage({ id: "page.resume.telephone" })}:
           <span className=" ml-1 font-medium subpixel-antialiased">
-            {`+${data.resume?.user?.telephone}`}
+            {`+${user?.telephone}`}
           </span>
         </div>
         <div className="p-2 bg-gray-800 border-gray-700 text-3xl text-white text-bold text-center">
@@ -99,7 +101,7 @@ function Resume({ data }: any) {
           {intl.formatMessage({ id: "page.resume.workHistory" })}
         </div>
         <div className="ml-2  grid lg:grid-cols-2 gap-5 md:grid-cols-1 sm:grid-cols-1 mt-5 mb-2 bg-gray-800 border-gray-700 text-4xl text-white text-bold text-left">
-          {data.resume?.workhistorys?.map((workHistory, index) => {
+          {resume?.workhistorys?.map((workHistory, index) => {
             return (
               <WorkHistory
                 workHistory={workHistory}
@@ -116,12 +118,12 @@ function Resume({ data }: any) {
           {intl.formatMessage({ id: "page.resume.educationAndTrainings" })}
         </div>
         <div className="mt-5 mb-0 bg-gray-800 border-gray-700 text-4xl text-white text-bold text-left">
-          {data.resume?.educations?.map((education, index) => {
+          {resume?.educations?.map((education, index) => {
             return (
               <Education education={education} key={index} locale={locale} />
             );
           })}
-          {data.resume?.additionalTrainings?.map((additionalTraining, index) => {
+          {resume?.additionalTrainings?.map((additionalTraining, index) => {
             return (
               <AdditionalTrainings
                 additionalTraining={additionalTraining}
@@ -130,7 +132,7 @@ function Resume({ data }: any) {
               />
             );
           })}
-          <BlockchainNFTBlock user={data.resume?.user} />
+          <BlockchainNFTBlock {...user} />
         </div>
       </div>
     </div>

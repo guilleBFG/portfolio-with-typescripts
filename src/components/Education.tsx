@@ -3,9 +3,16 @@ import Image from "next/image";
 import PortableText from "react-portable-text";
 import { urlFor } from "../lib/sanity";
 import moment from "moment";
-function Education({ education, locale }) {
+import { Education } from "../lib/typings";
+
+interface Props{
+  education: Education,
+  locale: string | undefined,
+}
+function Education( props : Props ) {
+  const {education, locale} = props;
   let degreeTitle = "";
-  let degreeDescription = "";
+  let degreeDescription = [];
   switch (locale) {
     case "es":
       degreeTitle = education?.degreeTitle?.es;
@@ -50,10 +57,6 @@ function Education({ education, locale }) {
                   dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
                   content={degreeDescription}
                   className="text-white text-base"
-                  serializers={{
-                    h1: (props) => <h1 {...props} />,
-                    h2: (props) => <h1 {...props} />,
-                  }}
                 />
               </blockquote>
             </div>

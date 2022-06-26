@@ -3,9 +3,13 @@ import Image from "next/image";
 import PortableText from "react-portable-text";
 import { urlFor } from "../lib/sanity";
 import moment from "moment";
-function AdditionalTrainings({ additionalTraining, locale }) {
+
+function AdditionalTrainings(
+  additionalTraining: any,
+  locale: string
+) {
   let degreeTitle = "";
-  let degreeDescription = "";
+  let degreeDescription = [];
   switch (locale) {
     case "es":
       degreeTitle = additionalTraining?.degreeTitle?.es;
@@ -40,7 +44,7 @@ function AdditionalTrainings({ additionalTraining, locale }) {
           <div className="  w-full  rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
             <div className="mb-8">
               <div className="font-bold text-white text-xl mb-2">
-                {`${degreeTitle} ${moment(additionalTraining.fromDate).format(
+                {`${degreeTitle} ${moment(additionalTraining.date).format(
                   "DD-MM-YYYY"
                 )}`}
               </div>
@@ -50,10 +54,6 @@ function AdditionalTrainings({ additionalTraining, locale }) {
                   dataset={process.env.NEXT_PUBLIC_SANITY_DATASET}
                   content={degreeDescription}
                   className="text-white text-base"
-                  serializers={{
-                    h1: (props) => <h1 {...props} />,
-                    h2: (props) => <h1 {...props} />,
-                  }}
                 />
               </blockquote>
             </div>

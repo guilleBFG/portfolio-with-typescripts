@@ -6,7 +6,7 @@ import styles from "../styles/Home.module.css";
 import { sanityClient } from "../lib/sanity";
 import BlockchainNFTBlock from "../components/BlockchainNFTBlock";
 import Footer from "../components/Footer";
-import { User } from "../lib/typings";
+import { Props } from "../lib/typings";
 
 const userQuery = `*[_type == 'user'][0]{
   profilePicture,
@@ -20,11 +20,6 @@ const userQuery = `*[_type == 'user'][0]{
   introduction,
   coverLetter,
 }`;
-interface Props{
-  data:{
-    user:User,
-  }
-}
 
 const Home = ( {data}  : Props) => {
   const intl = useIntl();
