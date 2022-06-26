@@ -5,7 +5,6 @@ import Herobutton from "../components/Herobutton";
 import styles from "../styles/Home.module.css";
 import { sanityClient } from "../lib/sanity";
 import BlockchainNFTBlock from "../components/BlockchainNFTBlock";
-import Footer from "../components/Footer";
 import { Props } from "../lib/typings";
 
 const userQuery = `*[_type == 'user'][0]{
@@ -45,9 +44,7 @@ const Home = ( {data}  : Props) => {
       <Herobutton  {...user}  />
       <BlockchainNFTBlock {...user} />
 
-      <footer className={styles.footer}>
-        <Footer />
-      </footer>
+    
     </div>
   );
 };

@@ -4,6 +4,8 @@ import { IntlProvider } from "react-intl";
 import { useRouter } from "next/router";
 import { Languages } from "../lang/languajes";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import styles from "../styles/Home.module.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   let { locale , defaultLocale } = useRouter();
@@ -20,6 +22,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     >
       <Navbar {...pageProps}/>
       <Component {...pageProps} />
+      <footer className={styles.footer}>
+        <Footer />
+      </footer>
     </IntlProvider>
   );
 }
