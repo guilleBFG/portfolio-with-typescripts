@@ -1,4 +1,3 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 import { useIntl } from "react-intl";
 import Herobutton from "../components/Herobutton";
