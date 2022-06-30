@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/PDF/CreatePDF.tsx", "src/components/PDF/CreatePDF.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/PDF/CreatePDF.jsx"],
   "exclude": ["node_modules"]
 }
