@@ -77,7 +77,7 @@ function Navbar({ data }: Props) {
                 target={"_blank"}
                 rel={"noreferrer"}
               >
-                <Icon width="30" height="30" icon="logos:whatsapp" />
+                <Icon width="30" height="30" icon="logos:whatsapp-icon" />
               </a>
             </Link>
             <Link key={data?.user?.github} href={data?.user?.github ?? ''}>
