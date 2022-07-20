@@ -50,9 +50,9 @@ function Resume({ data }: Props) {
   const generatePDF = ()=>{
     const createPdf = createPDF();
     createPdf.addPersInfo(user, intl);
-    createPdf.addWorkExperience(resume.workhistorys, locale,intl);
-    createPdf.addEducation(resume.educations, locale,intl);
-    createPdf.addTrainings(resume.additionalTrainings, locale);
+    createPdf.addWorkExperience(resume.workhistorys, locale!,intl);
+    createPdf.addEducation(resume.educations, locale!,intl);
+    createPdf.addTrainings(resume.additionalTrainings, locale!);
 
     createPdf.savePDF(`${user?.fullName} (${locale}).pdf`);
 

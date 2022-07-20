@@ -1,6 +1,8 @@
 import jsPDF from "jspdf";
 import moment from "moment";
+import { IntlShape } from "react-intl";
 import { blockContentToPlainText } from "react-portable-text";
+import { AdditionalTraining, Education, User, Workhistory } from "../../lib/typings";
 
 function createPDF() {
   const rowHeight = 10;
@@ -13,11 +15,11 @@ function createPDF() {
   const fontType = "Courier";
 
   const doc = new jsPDF();
-  let xPosition = 20;
+  let xPosition = 20 ;
   let yPosition = 20;
   let pageHeight = 280;
 
-  const updateHeight = (row) => {
+  const updateHeight = (row : number) => {
     yPosition = yPosition + row;
     if (yPosition >= pageHeight) {
       doc.addPage();
@@ -25,38 +27,38 @@ function createPDF() {
     }
   };
 
-  const createPersonalInfo = (user, intl) => {
+  const createPersonalInfo = (user : User, intl: IntlShape) => {
     // section name
     doc.setFont(fontType, "bold");
     doc.setFontSize(18);
     doc.setTextColor(colorAccent);
     doc.setFont(fontType, "bold");
-    doc.text(xPosition, yPosition, `${user.fullName}`);
+    doc.text( `${user.fullName}`, xPosition, yPosition);
     updateHeight(smallHeight);
 
     // Telephone and Email
     doc.setTextColor(colorDarkGrey);
     doc.setFontSize(10);
     doc.text(
+      `${intl.formatMessage({ id: "page.resume.telephone" })}: +${user.telephone}`,
       xPosition,
       yPosition,
-      `${intl.formatMessage({ id: "page.resume.telephone" })}: +${user.telephone}`
     );
     updateHeight(smallHeight);
     doc.setFont(fontType, "bold");
     doc.setTextColor(colorDarkGrey);
     doc.text(
+      `${intl.formatMessage({ id: "page.resume.email" })}: ${user.email}`,
       xPosition,
-      yPosition,
-      `${intl.formatMessage({ id: "page.resume.email" })}: ${user.email}`
+      yPosition
     );
     updateHeight(smallHeight);
     doc.setFont(fontType, "bold");
     doc.setTextColor(colorDarkGrey);
     doc.text(
+      `${intl.formatMessage({ id: "page.my.site" })}: https://gwester.com.ar`,
       xPosition,
-      yPosition,
-      `${intl.formatMessage({ id: "page.my.site" })}: https://gwester.com.ar`
+      yPosition
     );
     updateHeight(verySmallHeight);
 
@@ -66,15 +68,15 @@ function createPDF() {
     updateHeight(rowHeight);
     updateHeight(smallHeight);
   };
-  const createWorkExperience = (workHistorys, locale, intl) => {
+  const createWorkExperience = (workHistorys: Workhistory[], locale: string, intl: IntlShape) => {
     // section work experience title
     doc.setFont(fontType, "bold");
     doc.setTextColor(colorAccent);
     doc.setFontSize(14);
     doc.text(
+      `${intl.formatMessage({ id: "page.resume.workHistory" })}`,
       xPosition,
-      yPosition,
-      `${intl.formatMessage({ id: "page.resume.workHistory" })}`
+      yPosition
     );
     updateHeight(rowHeight);
     // work experience content
@@ -85,7 +87,7 @@ function createPDF() {
     workHistorys.map((workHistory) => {
       // init translation block
       let jobTitle = "";
-      let jobDescription = "";
+      let jobDescription = [];
       let toDate = "";
 
       if (workHistory.toDate) {
@@ -119,18 +121,18 @@ function createPDF() {
       doc.setFontSize(12);
       // job title at organization name
       doc.text(
-        xPosition,
-        yPosition,
         `${jobTitle} ${intl.formatMessage({ id: "page.pdf.at" })} ${
           workHistory.companyName
-        } `
+        } `,
+        xPosition,
+        yPosition
       );
       updateHeight(smallHeight);
       // organization name
       doc.text(
+        `(${moment(workHistory.fromDate).format("DD-MM-YYYY")} - ${toDate})`,
         xPosition,
-        yPosition,
-        `(${moment(workHistory.fromDate).format("DD-MM-YYYY")} - ${toDate})`
+        yPosition
       );
       updateHeight(smallHeight);
       // job responsibilities
@@ -158,18 +160,18 @@ function createPDF() {
     });
   };
 
-  const createEducation = (educations, locale, intl) => {
+  const createEducation = (educations: Education[], locale: string, intl: IntlShape) => {
     let degreeTitle = "";
-    let degreeDescription = "";
+    let degreeDescription = [];
 
     // section education title
     doc.setFont(fontType, "bold");
     doc.setTextColor(colorAccent);
     doc.setFontSize(14);
     doc.text(
+      `${intl.formatMessage({ id: "page.resume.educationAndTrainings" })}`,
       xPosition,
-      yPosition,
-      `${intl.formatMessage({ id: "page.resume.educationAndTrainings" })}`
+      yPosition
     );
     updateHeight(rowHeight);
 
@@ -201,19 +203,19 @@ function createPDF() {
       doc.setFont(fontType, "bold");
       doc.setFontSize(12);
       // education at organization name
-      doc.text(xPosition, yPosition, `${degreeTitle}`);
+      doc.text(`${degreeTitle}`,xPosition, yPosition);
       doc.setFont(fontType, "bold");
       updateHeight(smallHeight);
       // organization education name
       doc.setFontSize(11);
       
-      doc.text(xPosition, yPosition, `${education.institutionName}`);
+      doc.text( `${education.institutionName}`, xPosition, yPosition);
       updateHeight(smallHeight);
 
       doc.text(
+        `(${moment(education.fromDate).format("DD-MM-YYYY")} - ${moment(education.toDate).format("DD-MM-YYYY")})`,
         xPosition,
-        yPosition,
-        `(${moment(education.fromDate).format("DD-MM-YYYY")} - ${moment(education.toDate).format("DD-MM-YYYY")})`
+        yPosition
       );
       updateHeight(smallHeight);
 
@@ -241,9 +243,9 @@ function createPDF() {
 
     });
   };
-  const createTrainings = (additionalTrainings, locale) => {
+  const createTrainings = (additionalTrainings: AdditionalTraining[], locale:string) => {
     let degreeTitle = "";
-    let degreeDescription = "";
+    let degreeDescription = [];
 
     updateHeight(rowHeight);
 
@@ -275,13 +277,13 @@ function createPDF() {
       doc.setFont(fontType, "bold");
       doc.setFontSize(12);
       // education at organization name
-      doc.text(xPosition, yPosition, `${degreeTitle}`);
+      doc.text(`${degreeTitle}`,xPosition, yPosition);
       doc.setFont(fontType, "bold");
       updateHeight(smallHeight);
       // organization education name
       doc.setFontSize(11);
       
-      doc.text(xPosition, yPosition, `${additionalTraining.institutionName}`);
+      doc.text(`${additionalTraining.institutionName}`,xPosition, yPosition);
       updateHeight(smallHeight);
 
       // job responsibilities
@@ -310,20 +312,20 @@ function createPDF() {
   };
 
   return {
-    addPersInfo: (user, intl) => {
+    addPersInfo: (user : User, intl : IntlShape) => {
       createPersonalInfo(user, intl);
     },
 
-    addWorkExperience: (workHistorys, locale, intl) => {
+    addWorkExperience: (workHistorys : Workhistory[], locale: string , intl: IntlShape) => {
       createWorkExperience(workHistorys, locale, intl);
     },
-    addEducation: (educations, locale, intl) => {
+    addEducation: (educations: Education[], locale: string , intl: IntlShape) => {
       createEducation(educations, locale, intl);
     },
-    addTrainings: (additionalTrainings, locale) => {
+    addTrainings: (additionalTrainings: AdditionalTraining[], locale: string ) => {
       createTrainings(additionalTrainings, locale);
     },
-    savePDF: (title) => {
+    savePDF: (title: string) => {
       doc.save(title);
     },
   };

@@ -43,9 +43,9 @@ export interface Project{
     },
 }
 export interface BlockLocale{
-    en:object[],
-    es:object[],
-    pt:object[],
+    en:[any],
+    es:[any],
+    pt:[any],
 }
 export interface StringLocale{
     en:string,
@@ -55,6 +55,7 @@ export interface StringLocale{
 
 export interface AdditionalTraining{
     date:Date,
+    institutionName: string,
     institutionImage:SanityImageSource,
     degreeTitle:StringLocale,
     degreeDescription:BlockLocale,
