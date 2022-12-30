@@ -3,7 +3,8 @@ import Image from "next/image";
 import { useIntl } from "react-intl";
 
 function NftCard({ nft }  : any) {
-  const mimeType = `${nft.meta.content[0].mimeType}`;
+  if(!nft.meta) return
+  const mimeType = `${nft.meta?.content[0].mimeType}`;
   const intl = useIntl();
   const openseaUrlParametters = nft.id.toString().split(":");
   const openseaUrl = `https://opensea.io/assets/matic/${openseaUrlParametters[1]}/${openseaUrlParametters[2]}`;
@@ -14,7 +15,7 @@ function NftCard({ nft }  : any) {
           className="rounded-lg"
           autoPlay
           muted
-          src={nft.meta.content[0].url}
+          src={nft.meta?.content[0].url}
         ></video>
       )}
       {mimeType !== "video/mp4" && (
@@ -23,13 +24,13 @@ function NftCard({ nft }  : any) {
             className="object-fill rounded-lg"
             width={382}
             height={211}
-            src={nft.meta.content[0].url}
-            alt={nft.meta.description}
+            src={nft.meta?.content[0].url }
+            alt={nft.meta?.description}
           />
         </div>
       )}
       <div className="p-6 text-white text-bold text-center">
-        {nft.meta.name}
+        {nft.meta?.name}
       </div>
       <div className="text-center items-center">
           <a
@@ -44,7 +45,8 @@ function NftCard({ nft }  : any) {
       </div>
       {/*<div className="p-4 text-white text-center">{nft.meta.description}</div>*/}
     </div>
-  );
+      );
+
 }
 
 export default NftCard;
