@@ -11,7 +11,6 @@ function BlockchainNFTBlock( user : User) {
     `../api/fetch-NFT?nftWallet=${user?.nftWallet}`,
     fetcher
   );
-
   const intl = useIntl();
   return (
     <div className="text-xl text-white font-bold tracking-wide z-2 bg-gray-800 border-gray-700">

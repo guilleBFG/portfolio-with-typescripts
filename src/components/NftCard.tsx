@@ -3,11 +3,13 @@ import Image from "next/image";
 import { useIntl } from "react-intl";
 
 function NftCard({ nft }  : any) {
-  if(!nft.meta) return <div></div>
+  
   const mimeType = `${nft.meta?.content[0].mimeType}`;
   const intl = useIntl();
   const openseaUrlParametters = nft.id.toString().split(":");
   const openseaUrl = `https://opensea.io/assets/matic/${openseaUrlParametters[1]}/${openseaUrlParametters[2]}`;
+  if(!nft.meta) return <></>
+  
   return (
     <div className="mb-3 max-w-sm  rounded-lg border  shadow-md bg-gray-600 border-gray-500">
       {mimeType === "video/mp4" && (
@@ -15,7 +17,7 @@ function NftCard({ nft }  : any) {
           className="rounded-lg"
           autoPlay
           muted
-          src={nft.meta?.content[0].url}
+          src={nft.meta?.content[0].url }
         ></video>
       )}
       {mimeType !== "video/mp4" && (
