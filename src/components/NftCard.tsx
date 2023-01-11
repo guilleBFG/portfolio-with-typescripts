@@ -9,8 +9,7 @@ function NftCard({ nft }  : any) {
   const openseaUrlParametters = nft.id.toString().split(":");
   const openseaUrl = `https://opensea.io/assets/matic/${openseaUrlParametters[1]}/${openseaUrlParametters[2]}`;
   if(!nft.meta) return <></>
-  console.log(nft.meta.content[0])
-  
+
   return (
     <div className="mb-3 max-w-sm  rounded-lg border  shadow-md bg-gray-600 border-gray-500">
       {mimeType === "video/mp4" && (
