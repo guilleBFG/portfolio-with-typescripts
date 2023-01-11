@@ -25,6 +25,7 @@ function Herobutton( user  : User) {
       content = user?.introduction?.en;
       break;
   }
+  if(!content) return <></>
   return (
     <div className="w-screen flex flex-col bg-gray-800 border-gray-700  md:p-0 bg-black-800 items-center">
       <Image

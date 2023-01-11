@@ -22,8 +22,11 @@ const resumeQuery = `*[_type == 'resume'][0]{
 
 function Resume({ data }: Props) {
   const { locale }  = useRouter();
-  const {resume, user} = data;
   const intl = useIntl();
+  if(!data) return <></>
+  const {resume, user} = data;
+
+  if(!resume) return <></>
 
   const title = intl.formatMessage({ id: "page.home.head.title" });
   const description = intl.formatMessage({
@@ -49,7 +52,7 @@ function Resume({ data }: Props) {
 
   const generatePDF = ()=>{
     const createPdf = createPDF();
-    createPdf.addPersInfo(user, intl);
+    createPdf.addPersInfo(user!, intl);
     createPdf.addWorkExperience(resume.workhistorys, locale!,intl);
     createPdf.addEducation(resume.educations, locale!,intl);
     createPdf.addTrainings(resume.additionalTrainings, locale!);

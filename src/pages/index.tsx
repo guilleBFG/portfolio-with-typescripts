@@ -21,6 +21,7 @@ const userQuery = `*[_type == 'user'][0]{
 
 const Home = ( {data}  : Props) => {
   const intl = useIntl();
+  if(!data) return <></>
   const {user} = data;
 
   const title = intl.formatMessage({ id: "page.home.head.title" });
@@ -40,8 +41,8 @@ const Home = ( {data}  : Props) => {
         <link rel="alternate" href="/pt" hrefLang="pt" />
       </Head>
 
-      <Herobutton  {...user}  />
-      <BlockchainNFTBlock {...user} />
+      <Herobutton  {...user!}  />
+      <BlockchainNFTBlock {...user!} />
 
     
     </div>

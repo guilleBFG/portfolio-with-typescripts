@@ -2,23 +2,23 @@ import { SanityImageSource } from "@sanity/image-url/lib/types/types"
 
 
 export interface Props{
-    data:{
-      user:User,
-      resume: Resume,
+    data?:{
+      user?:User,
+      resume?: Resume,
     }
   }
 
 export interface User{
-    profilePicture:SanityImageSource,
-    fullName:string,
-    jobTitle:stringLocale,
-    email:string,
-    linkedIn:string,
-    telephone:string,
-    github:string,
-    nftWallet:string,
-    introduction:BlockLocale,
-    coverLetter:BlockLocale,   
+    profilePicture?: any,
+    fullName?:string,
+    jobTitle?:stringLocale,
+    email?:string,
+    linkedIn?:string,
+    telephone?:string,
+    github?:string,
+    nftWallet?:string,
+    introduction?:BlockLocale,
+    coverLetter?:BlockLocale,   
 }
 export interface Workhistory{
     companyName:string,

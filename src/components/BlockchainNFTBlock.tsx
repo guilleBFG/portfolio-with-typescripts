@@ -7,11 +7,17 @@ import { User } from "../lib/typings";
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 function BlockchainNFTBlock( user : User) {
+  
+  
   const { data } = useSWR(
     `../api/fetch-NFT?nftWallet=${user?.nftWallet}`,
     fetcher
   );
   const intl = useIntl();
+
+  if(!user) return <></>
+  
+
   return (
     <div className="text-xl text-white font-bold tracking-wide z-2 bg-gray-800 border-gray-700">
       <div className="ml-3 text-xl text-white font-bold tracking-wide z-2 bg-gray-800 border-gray-700">
