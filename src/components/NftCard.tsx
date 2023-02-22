@@ -28,6 +28,7 @@ function NftCard({ nft }  : any) {
             height={211}
             src={nft.meta?.content[0].url }
             alt={nft.meta?.description}
+            unoptimized={true}
           />
         </div>
       )}
