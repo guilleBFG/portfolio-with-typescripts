@@ -6,17 +6,19 @@ import { User } from "../lib/typings";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-function BlockchainNFTBlock( user : User) {
-  
-  
+function BlockchainNFTBlock(user: User) {
+
+
   const { data } = useSWR(
     `../api/fetch-NFT?nftWallet=${user?.nftWallet}`,
     fetcher
   );
   const intl = useIntl();
 
-  if(!user) return <></>
-  
+
+  if (!user) return <></>
+
+
 
   return (
     <div className="text-xl text-white font-bold tracking-wide z-2 bg-gray-800 border-gray-700">
@@ -32,8 +34,8 @@ function BlockchainNFTBlock( user : User) {
         </div>
       ) : (
         <div className="ml-2 mt-2 grid lg:grid-cols-4 gap-4 md:grid-cols-2 sm:grid-cols-1 bg-gray-800 border-gray-700">
-          {data.items.map((nft : any) => {
-            return <NftCard nft={nft} key={nft.id} />;
+          {data.items.map((nft: any, index: number) => {
+            return <NftCard nft={nft} key={index} />;
           })}
         </div>
       )}

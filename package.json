@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ankr.com/ankr.js": "^0.4.0",
     "next": "^12.2.0",
     "next-sanity": "^0.5.2",
     "react": "18.2.0",
