@@ -10,7 +10,7 @@ export default async function handler(
   try {
     const { nftWallet } = req.query;
 
-    const provider = new AnkrProvider(process.env.NEXT_ANKR as string);
+    const provider = new AnkrProvider(process.env.NEXT_PUBLIC_ANKR as string);
 
     const { assets } = await provider.getNFTsByOwner({
       walletAddress: nftWallet as string,
